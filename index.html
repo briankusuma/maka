@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta
+      name="description"
+      content="MAKA Studio — creative solutions for modern brands."
+    />
+    <title>MAKA Studio — Creative Agency</title>
+    <link
+      rel="stylesheet"
+      href="./style.css"
+    />
+    <script
+      type="module"
+      src="./script.js"
+    ></script>
+  </head>
+  <body>
+    <a
+      class="skip-link"
+      href="#main"
+      >Skip to content</a
+    >
+
+    <!-- HEADER: full-width, padding 32px. -->
+    <header class="site-header" id="home" data-header>
+      <a class="site-header__brand" href="#home" aria-label="MAKA Studio home">
+        <span>Creative <span>Solutions</span></span>
+        <span>for Modern <span>Brands.</span></span>
+      </a>
+
+      <a class="site-header__logo" href="#home" aria-label="MAKA Studio home" data-header-logo>
+        <img src="./assets/icons/studio-symbol.svg" width="32" height="32" alt="" />
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul class="navigation">
+          <li class="navigation__item"><a class="navigation__link navigation__link--active" href="#home" aria-current="page">Home</a></li>
+          <li class="navigation__item"><a class="navigation__link" href="#about">About us</a></li>
+          <li class="navigation__item"><a class="navigation__link" href="#portfolio">Portfolio</a></li>
+          <li class="navigation__item"><a class="navigation__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-header__clock" aria-label="Current time in Jakarta">
+        <time class="site-header__time" data-clock>GMT+7</time>
+        <span class="site-header__timezone">(GMT+7)</span>
+      </div>
+
+      <div class="site-header__availability">
+        <p>Available for project</p>
+        <p class="site-header__date">Early Nov 2026</p>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- HERO: proportional editorial composition based on the 1440px frame. -->
+      <section class="hero" aria-labelledby="hero-title" data-hero>
+        <h1 class="hero__wordmark" id="hero-title" data-hero-wordmark>
+          <span aria-hidden="true">M@KA</span>
+          <span class="u-sr-only">MAKA Studio — Creative Agency</span>
+        </h1>
+
+        <img class="hero__divider" src="./assets/images/hero/divider.svg" width="1440" height="1" alt="" />
+
+        <p class="hero__description" data-hero-copy>
+          <span>We help brands <span>grow through</span></span>
+          <span>strategy-driven design, <span>branding,</span></span>
+          <span>and digital <span>experiences.</span></span>
+        </p>
+
+        <figure class="hero__figure hero__figure--portrait" data-hero-figure>
+          <figcaption class="hero__caption"><span>/**</span><span>(/021)</span></figcaption>
+          <div class="hero__image-mask">
+            <img class="hero__image" src="./assets/images/hero/portrait.png" width="520" height="360" alt="Profile portrait of a woman wearing sculptural earrings" fetchpriority="high" data-hero-image />
+          </div>
+        </figure>
+
+        <div class="hero__wordmark-art" aria-hidden="true" data-hero-art>
+          <img src="./assets/images/hero/wordmark.svg" width="1427.46" height="308.88" alt="" />
+        </div>
+
+        <figure class="hero__figure hero__figure--agency" data-hero-figure>
+          <figcaption class="hero__caption"><span>Creative Agency</span><span>(est 2020)</span></figcaption>
+          <div class="hero__image-mask">
+            <img class="hero__image" src="./assets/images/hero/creative-agency.png" width="520" height="360" alt="Editorial group portrait in contemporary fashion and sunglasses" fetchpriority="high" data-hero-image />
+          </div>
+        </figure>
+      </section>
+      <!-- ABOUT: ticker full-width, konten mengikuti container 1440px. -->
+      <section class="introduction" id="about" aria-labelledby="about-title">
+        <div class="ticker" aria-label="Let’s build something great.">
+          <div class="ticker__track" data-marquee-track aria-hidden="true">
+            <div class="ticker__group">
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+            </div>
+            <div class="ticker__group">
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-container introduction__content">
+          <h2 class="introduction__label" id="about-title" data-reveal>
+            <span class="introduction__label-line">
+              <span>Creativity</span>
+              <span>without strategy</span>
+              <span>is just art.</span>
+            </span>
+            <span class="introduction__label-line introduction__label-line--short">
+              <span>We create with</span>
+              <span>purpose.</span>
+            </span>
+          </h2>
+
+          <p class="introduction__statement" data-reveal>
+            We are a creative agency focused on building impactful brands through
+            strategy, design, and digital innovation. Our approach combines
+            aesthetics with performance — ensuring every project not only looks
+            good but delivers real results.
+          </p>
+        </div>
+      </section>
+
+      <!-- SELECTED WORK: replace the empty state with project figures and local assets. -->
+      <section
+        class="section"
+        id="portfolio"
+        aria-labelledby="work-title"
+      >
+        <div class="layout-container">
+          <div
+            class="section__heading"
+            data-reveal
+          >
+            <h2
+              class="type-label"
+              id="work-title"
+            >
+              Selected work
+            </h2>
+            <p class="type-label type-label--muted">
+              Branding / Development / UI/UX / Creative direction
+            </p>
+          </div>
+          <div
+            class="asset-placeholder"
+            data-reveal
+          >
+            <p>Project imagery goes here.</p>
+            <p class="type-label type-label--muted">assets/images/projects/</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEXT: statistics → social proof accordion → why choose MAKA. -->
+    </main>
+
+    <footer
+      class="site-footer"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
+      <div class="layout-container site-footer__content">
+        <p class="site-footer__caption type-label">Designed with strategy. Built with purpose.</p>
+        <h2
+          class="site-footer__title"
+          id="contact-title"
+          data-reveal
+        >
+          Let's build<br />something great.
+        </h2>
+        <!-- Add a verified contact address here before shipping. -->
+        <a
+          class="site-footer__link text-link"
+          href="#home"
+          >Back to top <span class="text-link__icon" aria-hidden="true">↗</span></a
+        >
+        <p class="site-footer__caption type-label">MAKA Studio</p>
+      </div>
+    </footer>
+  </body>
+</html>
