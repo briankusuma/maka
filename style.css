@@ -1880,6 +1880,30 @@ body:has(.project-viewer[open]) {
   object-fit: cover;
 }
 
+.site-footer__image-frame {
+  position: relative;
+  width: 100%;
+  height: 159px;
+  overflow: hidden;
+}
+
+.site-footer__image--right {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-footer:has(.site-footer__cta:hover) .site-footer__image--right {
+    opacity: 1;
+  }
+}
+
+.site-footer:has(.site-footer__cta:focus-visible) .site-footer__image--right {
+  opacity: 1;
+}
+
 .site-footer__legal {
   position: absolute;
   top: 804px;
