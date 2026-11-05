@@ -34,13 +34,19 @@ export function initStatisticsGaze(root) {
   function animate() {
     if (events.signal.aborted) return;
     const active = hovered || button.matches(':focus-visible');
-    updateCounters(active);
     tween?.kill();
     tween = gsap.to(image, {
       opacity: active && ready ? 1 : 0,
-      duration: reducedMotion.matches ? 0 : active ? 0.65 : 0.8,
+      duration: reducedMotion.matches ? 0 : active ? 1.2 : 1.35,
       ease: 'sine.inOut',
       overwrite: 'auto',
+      onUpdate() {
+        // Angka berganti di tengah crossfade, termasuk saat arah dibalik.
+        updateCounters(Number(gsap.getProperty(image, 'opacity')) >= 0.5);
+      },
+      onComplete() {
+        updateCounters(active && ready);
+      },
     });
   }
 

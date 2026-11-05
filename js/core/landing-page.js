@@ -8,6 +8,7 @@ import { initStatistics } from '../sections/statistics.js';
 import { Projects } from '../sections/projects.js';
 import { Testimonials } from '../sections/testimonials.js';
 import { initStatisticsGaze } from '../interactions/statistics-gaze.js';
+import { initHeroPoses } from '../interactions/hero-poses.js';
 
 export class LandingPage {
   constructor(root) {
@@ -18,6 +19,7 @@ export class LandingPage {
     this.projects = null;
     this.testimonials = null;
     this.destroyStatisticsGaze = null;
+    this.destroyHeroPoses = null;
     this.refreshPending = false;
     this.requestRefresh = this.requestRefresh.bind(this);
     this.flushRefresh = this.flushRefresh.bind(this);
@@ -29,6 +31,7 @@ export class LandingPage {
     const events = new AbortController();
     this.events = events;
     this.destroyClock = initClock(this.root);
+    this.destroyHeroPoses = initHeroPoses(this.root);
     this.destroyStatisticsGaze = initStatisticsGaze(this.root);
     this.projects = new Projects(
       this.root.querySelector('[data-projects]'),
@@ -92,6 +95,8 @@ export class LandingPage {
   }
 
   destroy() {
+    this.destroyHeroPoses?.();
+    this.destroyHeroPoses = null;
     this.destroyStatisticsGaze?.();
     this.destroyStatisticsGaze = null;
     this.testimonials?.destroy();

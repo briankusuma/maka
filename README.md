@@ -51,6 +51,8 @@ maka/
 
 ## Memperbarui
 
+Hero kanan menggunakan lima file `assets/images/hero/model-pose-sequence-5/pose-01.png` sampai `pose-05.png`. Loop 600ms per pose dikelola `js/interactions/hero-poses.js`, tanpa tombol Pause, berhenti di luar viewport/tab, dan menampilkan frame pertama untuk reduced motion. Durasi gaze statistik 1,2 detik masuk / 1,35 detik keluar; offset angka mengikuti titik tengah opacity background.
+
 Efek gaze statistik berada di `js/interactions/statistics-gaze.js`: hover CTA kiri atau fokus keyboard menampilkan `assets/images/studio/maka-background-gaze.png`, lalu kembali ke foto default saat keluar. Transisi memakai crossfade dua gambar, bukan image sequence. Gambar di-decode sebelum dipakai dan cleanup membatalkan listener/tween serta callback async yang terlambat.
 
 Pertahankan format source yang mudah dibaca: indentasi dua spasi, atribut HTML per baris, dan deklarasi CSS per baris.
@@ -68,3 +70,9 @@ Pertahankan format source yang mudah dibaca: indentasi dua spasi, atribut HTML p
 Lenis memakai ticker GSAP dengan konversi detik ke milidetik dan tersinkron ke ScrollTrigger, sesuai [dokumentasi Lenis](https://github.com/darkroomengineering/lenis). GSAP dimuat melalui [npm dan ES modules](https://gsap.com/docs/v3/Installation/).
 
 Saat reduced motion aktif, smooth scrolling dan animasi dimatikan. Tanpa JavaScript, konten tetap terlihat dan anchor tetap bekerja.
+
+Sequence yang sama dipakai di foto panel 36’: otomatis berjalan saat accordion terbuka dan foto terlihat, lalu kembali ke pose pertama saat ditutup. Mode per komponen diatur melalui `data-pose-sequence="auto"` atau `"accordion"`.
+
+Foto kiri hero dan accordion 01 memakai `model-left-pose-sequence-5` dengan pengaturan yang sama: 600ms per frame, autoplay untuk hero, play saat accordion terbuka dan terlihat untuk panel 01.
+
+Accordion 02 (Orbitly) menggunakan lima pose dari `assets/images/hero/accordion-pose-sequence-5/`, dengan interval 600ms dan lifecycle yang sama seperti panel 01/03.

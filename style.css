@@ -344,6 +344,16 @@ a {
   pointer-events: none;
 }
 
+.hero__pose {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.hero__pose--first {
+  opacity: 1;
+}
+
 .hero__image {
   width: 100%;
   height: 100%;
@@ -2168,4 +2178,13 @@ body:has(.project-viewer[open]) {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Pose hover menggunakan crop portrait accordion yang sama. */
+.testimonials__pose {
+  opacity: 0;
+}
+
+.testimonials__pose--first {
+  opacity: 1;
 }
