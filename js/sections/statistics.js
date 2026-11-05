@@ -9,9 +9,14 @@ export function initStatistics(root, { gsap }) {
   for (const counter of counters) {
     const finalValue = Number(counter.dataset.count);
     const state = { value: 0 };
-    const finalText = String(finalValue);
     const output = counter.querySelector('[data-count-value]');
     if (!output) continue;
+
+    // Count-up memiliki nilai dasar; gaze hanya menambahkan offset hover.
+    function render(value) {
+      counter.dataset.countCurrent = String(value);
+      output.textContent = String(value + Number(section.dataset.countOffset || 0));
+    }
 
     const tween = gsap.to(state, {
       value: finalValue,
@@ -24,10 +29,10 @@ export function initStatistics(root, { gsap }) {
         once: true,
       },
       onUpdate() {
-        output.textContent = String(state.value);
+        render(state.value);
       },
       onComplete() {
-        output.textContent = finalText;
+        render(finalValue);
       },
     });
 
@@ -35,7 +40,8 @@ export function initStatistics(root, { gsap }) {
     cleanups.push(() => {
       tween.scrollTrigger?.kill();
       tween.kill();
-      output.textContent = finalText;
+      render(finalValue);
+      delete counter.dataset.countCurrent;
     });
   }
 

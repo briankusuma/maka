@@ -51,6 +51,8 @@ maka/
 
 ## Memperbarui
 
+Efek gaze statistik berada di `js/interactions/statistics-gaze.js`: hover CTA kiri atau fokus keyboard menampilkan `assets/images/studio/maka-background-gaze.png`, lalu kembali ke foto default saat keluar. Transisi memakai crossfade dua gambar, bukan image sequence. Gambar di-decode sebelum dipakai dan cleanup membatalkan listener/tween serta callback async yang terlambat.
+
 Pertahankan format source yang mudah dibaca: indentasi dua spasi, atribut HTML per baris, dan deklarasi CSS per baris.
 
 - Tambah markup di `index.html`; section diberi komentar agar mudah ditemukan.

@@ -824,6 +824,7 @@ body:has(.project-viewer[open]) {
   position: absolute;
   z-index: -2;
   inset: 0;
+  pointer-events: none;
 }
 
 .statistics__background::after {
@@ -838,6 +839,12 @@ body:has(.project-viewer[open]) {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.statistics__image--gaze {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
 }
 
 .statistics__divider {
@@ -856,6 +863,13 @@ body:has(.project-viewer[open]) {
   min-height: 848px;
   gap: 120px;
   padding-block: 32px 21px;
+}
+
+/* Pertahankan crop cover frame Figma pada desktop yang lebih lebar. */
+@media (min-width: 1440px) {
+  .statistics__content {
+    min-height: calc(100vw * 848 / 1440);
+  }
 }
 
 .statistics__top {

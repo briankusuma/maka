@@ -7,6 +7,7 @@ import { initClock } from '../interactions/clock.js';
 import { initStatistics } from '../sections/statistics.js';
 import { Projects } from '../sections/projects.js';
 import { Testimonials } from '../sections/testimonials.js';
+import { initStatisticsGaze } from '../interactions/statistics-gaze.js';
 
 export class LandingPage {
   constructor(root) {
@@ -16,6 +17,7 @@ export class LandingPage {
     this.destroyClock = null;
     this.projects = null;
     this.testimonials = null;
+    this.destroyStatisticsGaze = null;
     this.refreshPending = false;
     this.requestRefresh = this.requestRefresh.bind(this);
     this.flushRefresh = this.flushRefresh.bind(this);
@@ -27,6 +29,7 @@ export class LandingPage {
     const events = new AbortController();
     this.events = events;
     this.destroyClock = initClock(this.root);
+    this.destroyStatisticsGaze = initStatisticsGaze(this.root);
     this.projects = new Projects(
       this.root.querySelector('[data-projects]'),
       this.requestRefresh,
@@ -89,6 +92,8 @@ export class LandingPage {
   }
 
   destroy() {
+    this.destroyStatisticsGaze?.();
+    this.destroyStatisticsGaze = null;
     this.testimonials?.destroy();
     this.testimonials = null;
     this.projects?.destroy();
