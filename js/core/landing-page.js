@@ -4,6 +4,9 @@ import { initReveals } from '../interactions/reveal.js';
 import { initMarquee } from '../interactions/marquee.js';
 import { initHero } from '../sections/hero.js';
 import { initClock } from '../interactions/clock.js';
+import { initStatistics } from '../sections/statistics.js';
+import { Projects } from '../sections/projects.js';
+import { Testimonials } from '../sections/testimonials.js';
 
 export class LandingPage {
   constructor(root) {
@@ -11,6 +14,8 @@ export class LandingPage {
     this.media = null;
     this.events = null;
     this.destroyClock = null;
+    this.projects = null;
+    this.testimonials = null;
     this.refreshPending = false;
     this.requestRefresh = this.requestRefresh.bind(this);
     this.flushRefresh = this.flushRefresh.bind(this);
@@ -22,6 +27,16 @@ export class LandingPage {
     const events = new AbortController();
     this.events = events;
     this.destroyClock = initClock(this.root);
+    this.projects = new Projects(
+      this.root.querySelector('[data-projects]'),
+      this.requestRefresh,
+    );
+    this.projects.init();
+    this.testimonials = new Testimonials(
+      this.root.querySelector('[data-testimonials]'),
+      this.requestRefresh,
+    );
+    this.testimonials.init();
     this.media = gsap.matchMedia();
 
     this.media.add('(prefers-reduced-motion: no-preference)', () => {
@@ -32,9 +47,13 @@ export class LandingPage {
       initHero(this.root, services);
       initReveals(this.root, services);
       initMarquee(this.root, services);
+      const destroyStatistics = initStatistics(this.root, services);
 
       // matchMedia me-revert tween/trigger; cleanup menghentikan Lenis.
-      return () => scroll.destroy();
+      return () => {
+        destroyStatistics?.();
+        scroll.destroy();
+      };
     });
 
     // Event-driven: tidak ada polling untuk menunggu halaman selesai.
@@ -70,6 +89,10 @@ export class LandingPage {
   }
 
   destroy() {
+    this.testimonials?.destroy();
+    this.testimonials = null;
+    this.projects?.destroy();
+    this.projects = null;
     this.destroyClock?.();
     this.destroyClock = null;
     this.events?.abort();

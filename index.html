@@ -135,61 +135,489 @@
         </div>
       </section>
 
-      <!-- SELECTED WORK: replace the empty state with project figures and local assets. -->
-      <section
-        class="section"
-        id="portfolio"
-        aria-labelledby="work-title"
-      >
-        <div class="layout-container">
-          <div
-            class="section__heading"
-            data-reveal
-          >
-            <h2
-              class="type-label"
-              id="work-title"
-            >
-              Selected work
-            </h2>
-            <p class="type-label type-label--muted">
-              Branding / Development / UI/UX / Creative direction
+      <!-- SERVICES / WORK: Swiper mengelola perpindahan grup tahun. -->
+      <section class="projects" id="portfolio" aria-labelledby="projects-title" data-projects>
+        <h2 class="u-sr-only" id="projects-title">Services and selected projects</h2>
+        <img class="projects__dividers" src="./assets/images/projects/project-dividers.svg" width="1440" height="405" alt="" aria-hidden="true" />
+
+        <div class="layout-container projects__content">
+          <!-- Daftar selain Branding adalah copy awal; edit di sini. -->
+          <ul class="projects__services" aria-label="Services" data-services>
+            <li class="projects__service projects__service--active" data-service>
+              <button
+                class="projects__service-name"
+                type="button"
+                aria-expanded="true"
+                aria-controls="service-branding"
+                id="service-link-branding"
+                data-service-trigger
+              >Branding</button>
+              <ul class="projects__specialties" id="service-branding">
+                <li>Logo</li>
+                <li>Mockup</li>
+                <li>Social media</li>
+              </ul>
+            </li>
+            <li class="projects__service" data-service>
+              <button
+                class="projects__service-name"
+                type="button"
+                aria-expanded="false"
+                aria-controls="service-development"
+                id="service-link-development"
+                data-service-trigger
+              >Development</button>
+              <ul class="projects__specialties" id="service-development" hidden>
+                <li>Web development</li>
+                <li>Creative coding</li>
+                <li>Web animation</li>
+              </ul>
+            </li>
+            <li class="projects__service" data-service>
+              <button
+                class="projects__service-name"
+                type="button"
+                aria-expanded="false"
+                aria-controls="service-uiux"
+                id="service-link-uiux"
+                data-service-trigger
+              >UI/UX</button>
+              <ul class="projects__specialties" id="service-uiux" hidden>
+                <li>User research</li>
+                <li>Interface design</li>
+                <li>Prototyping</li>
+              </ul>
+            </li>
+            <li class="projects__service" data-service>
+              <button
+                class="projects__service-name"
+                type="button"
+                aria-expanded="false"
+                aria-controls="service-creative"
+                id="service-link-creative"
+                data-service-trigger
+              >Creative direction</button>
+              <ul class="projects__specialties" id="service-creative" hidden>
+                <li>Art direction</li>
+                <li>Visual concept</li>
+                <li>Campaign direction</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="swiper projects__slider" data-project-slider tabindex="0" aria-label="Selected projects by year">
+            <div class="swiper-wrapper projects__track">
+              <div class="swiper-slide projects__year projects__year--2024">
+                <p class="projects__year-label" aria-label="2024"><span>(20</span><span>24)</span></p>
+                <div class="projects__collection">
+                  <figure class="project-card project-card--large" data-project-card>
+                  <button class="project-card__image-button" type="button" data-project-open="0" aria-label="View MANDRA">
+                    <img class="project-card__image" src="./assets/images/projects/mandra.png" width="347" height="412" alt="MANDRA — mockup" loading="lazy" />
+                  </button>
+                  <figcaption class="project-card__caption"><span>MANDRA</span><time datetime="2024-09-12">12/09/24</time></figcaption>
+                  <p class="project-card__type">MOCKUP</p>
+                </figure>
+                  <div class="projects__secondary">
+                    <div class="projects__pair">
+                      <figure class="project-card project-card--small" data-project-card>
+                  <figcaption class="project-card__caption"><span>SPACE 307</span><time datetime="2024-09-12">12/09/24</time></figcaption>
+                  <p class="project-card__type">MOCKUP & LOGO</p>
+                  <button class="project-card__image-button" type="button" data-project-open="1" aria-label="View SPACE 307">
+                    <img class="project-card__image" src="./assets/images/projects/space-307.png" width="175.567" height="222.959" alt="SPACE 307 — mockup & logo" loading="lazy" />
+                  </button>
+                </figure>
+                      <figure class="project-card project-card--small" data-project-card>
+                  <button class="project-card__image-button" type="button" data-project-open="2" aria-label="View BYREDO">
+                    <img class="project-card__image" src="./assets/images/projects/byredo.png" width="175.567" height="222.959" alt="BYREDO — mockup" loading="lazy" />
+                  </button>
+                  <figcaption class="project-card__caption"><span>BYREDO</span><time datetime="2024-09-12">12/09/24</time></figcaption>
+                  <p class="project-card__type">MOCKUP</p>
+                </figure>
+                    </div>
+                    <button class="projects__more" type="button" data-project-open="0">
+                      More about 2024
+                      <img src="./assets/icons/project-arrow.svg" width="20.22" height="12" alt="" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide projects__year projects__year--2025">
+                <p class="projects__year-label" aria-label="2025"><span>(20</span><span>25)</span></p>
+                <figure class="project-card project-card--oval" data-project-card>
+                  <button class="project-card__image-button" type="button" data-project-open="3" aria-label="View 36’">
+                    <img class="project-card__image" src="./assets/images/projects/36-social.png" width="347" height="412" alt="36’ — social media" loading="lazy" />
+                  </button>
+                  <figcaption class="project-card__caption"><span>36’</span><time datetime="2024-09-12">12/09/24</time></figcaption>
+                  <p class="project-card__type">SOCIAL MEDIA</p>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <div class="projects__controls" data-project-controls hidden>
+            <button class="projects__control" type="button" data-project-prev aria-label="Previous projects">←</button>
+            <span class="projects__hint">Drag to explore</span>
+            <button class="projects__control" type="button" data-project-next aria-label="Next projects">→</button>
+          </div>
+        </div>
+
+        <dialog class="project-viewer" data-project-dialog aria-labelledby="project-viewer-title" data-lenis-prevent>
+          <div class="project-viewer__toolbar">
+            <h3 class="project-viewer__title" id="project-viewer-title" data-project-title>Selected project</h3>
+            <button class="project-viewer__close" type="button" data-project-close autofocus>Close ×</button>
+          </div>
+          <img class="project-viewer__image" data-project-preview alt="" />
+          <div class="project-viewer__navigation">
+            <button class="project-viewer__control" type="button" data-viewer-prev aria-label="Previous image">←</button>
+            <p class="project-viewer__description" data-project-description></p>
+            <button class="project-viewer__control" type="button" data-viewer-next aria-label="Next image">→</button>
+          </div>
+        </dialog>
+      </section>
+
+      <!-- STATISTICS: background full-width, konten maksimal 1440px. -->
+      <section class="statistics" aria-labelledby="statistics-title" data-statistics>
+        <div class="statistics__background" aria-hidden="true">
+          <img
+            class="statistics__image"
+            src="./assets/images/studio/creative-exploration.png"
+            width="1440"
+            height="848"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+
+        <img
+          class="statistics__divider"
+          src="./assets/images/studio/statistics-divider.svg"
+          width="1440"
+          height="1"
+          alt=""
+          aria-hidden="true"
+        />
+
+        <div class="layout-container statistics__content">
+          <div class="statistics__top">
+            <div class="statistics__metric" data-statistic>
+              <h2 class="statistics__label" id="statistics-title">Years of Creative Exploration</h2>
+              <p class="statistics__number" aria-label="More than 6 years">
+                <span data-count="6" aria-hidden="true"><span data-count-value>6</span></span><span aria-hidden="true">+</span>
+              </p>
+            </div>
+
+            <p class="statistics__philosophy">
+              <span class="statistics__copy-line statistics__copy-line--project">Every project <span>is a</span></span>
+              <span class="statistics__copy-line">balance of <span>creativity</span></span>
+              <span class="statistics__copy-line statistics__copy-line--short">and <span>strategy.</span></span>
             </p>
           </div>
-          <div
-            class="asset-placeholder"
-            data-reveal
-          >
-            <p>Project imagery goes here.</p>
-            <p class="type-label type-label--muted">assets/images/projects/</p>
+
+          <div class="statistics__bottom">
+            <div class="statistics__invitation">
+              <p class="statistics__description">
+                <span class="statistics__copy-line statistics__copy-line--intro">We collaborate <span>with</span></span>
+                <span>forward-thinking brands to</span>
+                <span class="statistics__copy-line">create <span>meaningful</span> <span>digital</span></span>
+                <span>experiences.</span>
+              </p>
+
+              <a class="statistics__contact" href="#contact">
+                <span>Connect with MAKA</span>
+                <img
+                  class="statistics__arrow"
+                  src="./assets/icons/arrow-right.svg"
+                  width="20"
+                  height="20"
+                  alt=""
+                />
+              </a>
+            </div>
+
+            <div class="statistics__metric" data-statistic>
+              <h3 class="statistics__label">Happy Clients</h3>
+              <p class="statistics__number" aria-label="More than 89 happy clients">
+                <span data-count="89" aria-hidden="true"><span data-count-value>89</span></span><span aria-hidden="true">+</span>
+              </p>
+            </div>
+
+            <div class="statistics__metric" data-statistic>
+              <h3 class="statistics__label">Projects Delivered</h3>
+              <p class="statistics__number" aria-label="More than 120 projects delivered">
+                <span data-count="120" aria-hidden="true"><span data-count-value>120</span></span><span aria-hidden="true">+</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- NEXT: statistics → social proof accordion → why choose MAKA. -->
+      <!-- SOCIAL PROOF: Orbitly terbuka sesuai referensi Figma. -->
+      <section class="testimonials" aria-labelledby="testimonials-title" data-testimonials>
+        <div class="ticker testimonials__ticker" aria-label="Let’s build something great.">
+          <div class="ticker__track" data-marquee-track aria-hidden="true">
+            <div class="ticker__group">
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+            </div>
+            <div class="ticker__group">
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+              <span class="ticker__item">Let’s build something great.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-container testimonials__content">
+          <div class="testimonials__header">
+            <h2 class="testimonials__title" id="testimonials-title">Social Proof</h2>
+            <p>MAKA STUDIO</p>
+          </div>
+          <article class="testimonials__item" data-testimonial>
+            <h3 class="testimonials__heading">
+              <button class="testimonials__trigger" type="button" id="testimonial-trigger-1" aria-expanded="false" aria-controls="testimonial-panel-1" data-testimonial-trigger>
+                <span class="testimonials__number">(01)</span>
+                <span class="testimonials__metadata">
+                  <span class="testimonials__client">Future doc</span>
+                  <span class="testimonials__field"><span class="testimonials__field-label">Project</span><span>Mocukp & logo</span></span>
+                  <span class="testimonials__field testimonials__field--year"><span class="testimonials__field-label">Year</span><span>2024</span></span>
+                  <img class="testimonials__down" src="./assets/icons/testimonial-down.svg" width="22.77" height="14" alt="" />
+                </span>
+              </button>
+            </h3>
+            <div class="testimonials__panel" id="testimonial-panel-1" role="region" aria-labelledby="testimonial-trigger-1" data-testimonial-panel hidden>
+              <div class="testimonials__panel-inner">
+                <figure class="testimonials__quote">
+                  <p class="testimonials__quotation testimonials__quotation--project">
+                    <span>Future doc</span>
+                    <span>Mockup & logo</span>
+                    <span>2024</span>
+                  </p>
+                  <div class="testimonials__portrait-mask">
+                    <img
+                      class="testimonials__portrait testimonials__portrait--editorial"
+                      src="./assets/images/hero/portrait.png"
+                      width="312"
+                      height="343"
+                      alt="Editorial profile portrait of a woman"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption class="testimonials__author">Future doc — Mockup & logo</figcaption>
+                </figure>
+              </div>
+            </div>
+            <button class="testimonials__collapse" type="button" aria-label="Collapse project details" aria-controls="testimonial-panel-1" data-testimonial-collapse><img class="testimonials__up" src="./assets/icons/testimonial-up.svg" width="31.0078" height="20" alt="" /></button>
+          </article>
+          <article class="testimonials__item testimonials__item--open" data-testimonial>
+            <h3 class="testimonials__heading">
+              <button class="testimonials__trigger" type="button" id="testimonial-trigger-2" aria-expanded="true" aria-controls="testimonial-panel-2" data-testimonial-trigger>
+                <span class="testimonials__number">(02)</span>
+                <span class="testimonials__metadata">
+                  <span class="testimonials__client">Orbitly</span>
+                  <span class="testimonials__field"><span class="testimonials__field-label">Project</span><span>Logo Redesign</span></span>
+                  <span class="testimonials__field testimonials__field--year"><span class="testimonials__field-label">Year</span><span>2024</span></span>
+                  <img class="testimonials__down" src="./assets/icons/testimonial-down.svg" width="22.77" height="14" alt="" />
+                </span>
+              </button>
+            </h3>
+            <div class="testimonials__panel" id="testimonial-panel-2" role="region" aria-labelledby="testimonial-trigger-2" data-testimonial-panel>
+              <div class="testimonials__panel-inner">
+                <figure class="testimonials__quote">
+                  <blockquote class="testimonials__quotation">
+                    <span class="testimonials__quote-line testimonials__quote-line--first">“Working <span>with this team</span></span>
+                    <span class="testimonials__quote-line">completely <span>transformed</span> <span>our</span></span>
+                    <span class="testimonials__quote-line testimonials__quote-line--last">brand <span>presence.”</span></span>
+                  </blockquote>
+                  <div class="testimonials__portrait-mask">
+                    <img class="testimonials__portrait" src="./assets/images/studio/amanda-lee.png" width="312" height="343" alt="Amanda Lee, Marketing Director" loading="lazy" />
+                  </div>
+                  <figcaption class="testimonials__author">Amanda Lee, Marketing Director</figcaption>
+                </figure>
+              </div>
+            </div>
+            <button class="testimonials__collapse" type="button" aria-label="Collapse project details" aria-controls="testimonial-panel-2" data-testimonial-collapse><img class="testimonials__up" src="./assets/icons/testimonial-up.svg" width="31.0078" height="20" alt="" /></button>
+          </article>
+          <article class="testimonials__item" data-testimonial>
+            <h3 class="testimonials__heading">
+              <button class="testimonials__trigger" type="button" id="testimonial-trigger-3" aria-expanded="false" aria-controls="testimonial-panel-3" data-testimonial-trigger>
+                <span class="testimonials__number">(03)</span>
+                <span class="testimonials__metadata">
+                  <span class="testimonials__client">36’</span>
+                  <span class="testimonials__field"><span class="testimonials__field-label">Project</span><span>Social media</span></span>
+                  <span class="testimonials__field testimonials__field--year"><span class="testimonials__field-label">Year</span><span>2025</span></span>
+                  <img class="testimonials__down" src="./assets/icons/testimonial-down.svg" width="22.77" height="14" alt="" />
+                </span>
+              </button>
+            </h3>
+            <div class="testimonials__panel" id="testimonial-panel-3" role="region" aria-labelledby="testimonial-trigger-3" data-testimonial-panel hidden>
+              <div class="testimonials__panel-inner">
+                <figure class="testimonials__quote">
+                  <p class="testimonials__quotation testimonials__quotation--project">
+                    <span>36’</span>
+                    <span>Social media</span>
+                    <span>2025</span>
+                  </p>
+                  <div class="testimonials__portrait-mask">
+                    <img
+                      class="testimonials__portrait testimonials__portrait--editorial"
+                      src="./assets/images/hero/creative-agency.png"
+                      width="312"
+                      height="343"
+                      alt="Editorial portrait cropped around a man wearing sunglasses"
+                      loading="lazy"
+                    />
+                  </div>
+                  <figcaption class="testimonials__author">36’ — Social media</figcaption>
+                </figure>
+              </div>
+            </div>
+            <button class="testimonials__collapse" type="button" aria-label="Collapse project details" aria-controls="testimonial-panel-3" data-testimonial-collapse><img class="testimonials__up" src="./assets/icons/testimonial-up.svg" width="31.0078" height="20" alt="" /></button>
+          </article>
+        </div>
+      </section>
+
+      <!-- WHY CHOOSE: grid editorial tiga kolom dari Figma. -->
+      <section class="why-choose" aria-labelledby="why-choose-title" data-why-choose>
+        <img
+          class="why-choose__lines"
+          src="./assets/images/studio/why-choose-lines.svg"
+          width="1440"
+          height="829"
+          alt=""
+          aria-hidden="true"
+        />
+        <div class="layout-container why-choose__content">
+          <div class="why-choose__introduction">
+            <div class="why-choose__intro-copy" data-reveal>
+              <h2 class="why-choose__title" id="why-choose-title">
+                <span class="why-choose__title-line">Why <span>choose</span></span>
+                <span>MAKA Studio</span>
+              </h2>
+              <p class="why-choose__summary">We combine strategy, creativity, and precision to deliver designs that not only look exceptional but drive real results.</p>
+            </div>
+            <a class="why-choose__more" href="#why-strategy">
+              Read more
+              <img src="./assets/icons/project-arrow.svg" width="20.2208" height="12" alt="" />
+            </a>
+          </div>
+
+          <article class="why-choose__reason" id="why-strategy" tabindex="-1">
+            <p class="why-choose__number" aria-hidden="true" data-reveal>01</p>
+            <div class="why-choose__details">
+              <div class="why-choose__copy" data-reveal>
+                <h3 class="why-choose__reason-title">Strategy-First Approach</h3>
+                <p class="why-choose__description">Every decision is guided by research, user insight, and clear business goals.</p>
+              </div>
+              <figure class="why-choose__visual why-choose__visual--strategy" data-reveal>
+                <img class="why-choose__image" src="./assets/images/studio/strategy-first.png" width="359" height="227" alt="Soft-focus silhouette beside an architectural facade" loading="lazy" />
+                <figcaption class="why-choose__image-copy">
+                  <span class="why-choose__image-line">Creativity <span>without strategy</span> <span>is just art.</span></span>
+                  <span>We create with <span>purpose.</span></span>
+                </figcaption>
+              </figure>
+            </div>
+          </article>
+
+          <article class="why-choose__reason why-choose__reason--second">
+            <p class="why-choose__number" aria-hidden="true" data-reveal>02</p>
+            <div class="why-choose__details">
+              <div class="why-choose__copy" data-reveal>
+                <h3 class="why-choose__reason-title">User-Centered Design</h3>
+                <p class="why-choose__description">We create intuitive experiences that solve real problems and engage users.</p>
+              </div>
+              <figure class="why-choose__visual" data-reveal>
+                <img class="why-choose__image" src="./assets/images/studio/user-centered.png" width="359" height="227" alt="Editorial portrait of a man wearing clear-frame glasses" loading="lazy" />
+                <figcaption class="why-choose__image-credit">MAKASTUDIO©2026</figcaption>
+              </figure>
+            </div>
+          </article>
+        </div>
+      </section>
     </main>
 
-    <footer
-      class="site-footer"
-      id="contact"
-      aria-labelledby="contact-title"
-    >
+    <!-- FOOTER: destinations for social/legal pages are not supplied yet. -->
+    <footer class="site-footer" id="contact" aria-labelledby="contact-title" data-footer>
+      <h2 class="u-sr-only" id="contact-title">Connect with MAKA Studio</h2>
+      <img class="site-footer__divider site-footer__divider--top" src="./assets/images/footer/divider-full.svg" width="1440" height="1" alt="" />
+      <p class="site-footer__wordmark" aria-hidden="true">M@KASTD</p>
+      <img class="site-footer__divider site-footer__divider--bottom" src="./assets/images/footer/divider-full.svg" width="1440" height="1" alt="" />
+
       <div class="layout-container site-footer__content">
-        <p class="site-footer__caption type-label">Designed with strategy. Built with purpose.</p>
-        <h2
-          class="site-footer__title"
-          id="contact-title"
-          data-reveal
-        >
-          Let's build<br />something great.
-        </h2>
-        <!-- Add a verified contact address here before shipping. -->
-        <a
-          class="site-footer__link text-link"
-          href="#home"
-          >Back to top <span class="text-link__icon" aria-hidden="true">↗</span></a
-        >
-        <p class="site-footer__caption type-label">MAKA Studio</p>
+        <ul class="site-footer__socials" aria-label="Social platforms">
+          <li><span class="site-footer__social" role="img" aria-label="Dribbble"><img src="./assets/icons/dribbble.svg" width="26" height="26" alt="" /></span></li>
+          <li><span class="site-footer__social" role="img" aria-label="Instagram"><img src="./assets/icons/instagram.svg" width="26" height="26" alt="" /></span></li>
+          <li><span class="site-footer__social" role="img" aria-label="LinkedIn"><img src="./assets/icons/linkedin.svg" width="26" height="26" alt="" /></span></li>
+        </ul>
+
+        <div class="site-footer__main">
+          <div class="site-footer__identity">
+            <p class="site-footer__tagline"><span>Designed with strategy</span><span>Built with purpose</span></p>
+            <p class="site-footer__copyright"><span>© 2026 MAKA Studio</span><span>All rights reserved</span></p>
+          </div>
+
+          <div class="site-footer__right">
+            <nav class="site-footer__navigation" aria-label="Footer navigation">
+              <div class="site-footer__group">
+                <h3 class="site-footer__group-title">Company</h3>
+                <ul class="site-footer__links">
+                  <li><a href="#about">About us</a></li>
+                  <li><a href="#why-strategy">Our process</a></li>
+                  <li><span>Careers</span></li>
+                  <li><span>Blog</span></li>
+                  <li><a href="mailto:hellomaka@studio.com">Contact</a></li>
+                </ul>
+              </div>
+              <div class="site-footer__group">
+                <h3 class="site-footer__group-title">Services</h3>
+                <ul class="site-footer__links site-footer__links--right">
+                  <li><a href="#service-link-branding">Branding</a></li>
+                  <li><a href="#service-link-uiux">UI/UX Design</a></li>
+                  <li><a href="#service-link-creative">Creative Direction</a></li>
+                  <li><a href="#service-link-development">Development</a></li>
+                </ul>
+              </div>
+              <div class="site-footer__group">
+                <h3 class="site-footer__group-title">Work</h3>
+                <ul class="site-footer__links site-footer__links--right">
+                  <li><a href="#portfolio">Case Studies</a></li>
+                  <li><a href="#portfolio">Selected Projects</a></li>
+                  <li><a href="#testimonials-title">Client Stories</a></li>
+                  <li><a href="#portfolio">Portfolio</a></li>
+                </ul>
+              </div>
+            </nav>
+
+            <div class="site-footer__cta-row">
+              <img class="site-footer__cta-line" src="./assets/images/footer/divider-cta.svg" width="962" height="1" alt="" />
+              <a class="site-footer__cta" href="mailto:hellomaka@studio.com">
+                Connect with MAKA
+                <img src="./assets/icons/arrow-right.svg" width="20" height="20" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <address class="site-footer__contacts">
+          <a href="mailto:hellomaka@studio.com">hellomaka@studio.com</a>
+          <a href="tel:0274817696">(0274) 817696</a>
+          <span>Palagan street no.12, Indonesia</span>
+        </address>
+
+        <figure class="site-footer__photo">
+          <figcaption class="site-footer__photo-caption"><span>/**</span><span>(/01)</span></figcaption>
+          <img class="site-footer__image" src="./assets/images/footer/eye-detail.png" width="284" height="159" alt="Close-up editorial photograph of a blue eye" loading="lazy" />
+        </figure>
+
+        <ul class="site-footer__legal" aria-label="Legal policies">
+          <li>Privacy Policy</li>
+          <li>Terms of Service</li>
+          <li>Cookie Policy</li>
+        </ul>
       </div>
     </footer>
   </body>

@@ -1,10 +1,16 @@
 # MAKA Studio
 
 Starter HTML, CSS, dan JavaScript vanilla dengan Vite, Lenis, GSAP, dan ScrollTrigger.
-Swiper juga terpasang untuk slider di masa depan, tetapi belum diimpor sehingga tidak menambah bundle landing saat ini. Saat diperlukan, impor core, modul, dan CSS secukupnya di modul fitur slider; ikuti aturan integrasinya di `AGENTS.md`.
+Swiper dipakai oleh modul `js/sections/projects.js`: core, FreeMode, A11y, Keyboard, Navigation, dan CSS terkait. Pada desktop lebar kedua grup tahun terlihat sekaligus; saat konten melebihi viewport, drag dan kontrol navigasi aktif.
 Header dan hero mengikuti node Figma `3832:2416`, memakai foto/SVG asli serta font Inter dan Bricolage Grotesque lokal. Section lanjutan masih berupa kerangka awal. Desktop mengikuti referensi; mobile merupakan adaptasi karena belum ada frame mobile yang diberikan.
 
+About mengikuti node `3832:2448`. Portfolio/services mengikuti node `3832:2459` dan berada sebelum statistik, dengan grup tahun Swiper, gambar besar/kecil/oval, serta dialog viewer. Statistik mengikuti node `3846:2702`, dengan foto full-width, tiga metrik, CTA, dan count-up GSAP. Social Proof di bawah statistik mengikuti node `3832:2530`, dengan accordion Orbitly terbuka saat awal, foto dan kutipan asli, navigasi keyboard, serta transisi tinggi yang memperbarui ScrollTrigger. Panel lainnya hanya memakai metadata proyek yang tersedia; kutipan tambahan belum diberikan.
+
 ## Menjalankan
+
+Footer mengikuti node `3832:2631` dengan foto mata, ikon dan divider asli. Email/telepon serta anchor halaman sudah aktif. URL sosial, Careers, Blog, dan halaman legal belum diberikan sehingga ditampilkan sebagai teks, bukan tautan dengan tujuan rekaan.
+
+Section Why Choose mengikuti node `3846:2799`, setelah Social Proof: grid tiga kolom, angka Bricolage Regular, dua gambar asli dan overlay. Link Read more menuju penjelasan Strategy-First di section yang sama. Mobile ditumpuk menjadi satu kolom.
 
 ```sh
 npm install
