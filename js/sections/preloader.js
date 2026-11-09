@@ -63,10 +63,12 @@ export class Preloader {
     this.display = this.hero.querySelector('[data-hero-wordmark] > [aria-hidden]');
     this.art = this.hero.querySelector('[data-hero-art]');
     this.copy = this.hero.querySelector('[data-hero-copy]');
+    this.agencyLabel = this.hero.querySelector('[data-hero-agency-label]');
     this.divider = this.hero.querySelector('.hero__divider');
 
     gsap.set(this.navigation, { autoAlpha: 0, y: -40 });
     gsap.set(this.navLogo, { autoAlpha: 0 });
+    gsap.set(this.logo, { opacity: 0.05 });
     // Offset piksel yang sama menjaga dua layer wordmark tetap menyatu.
     const displayOffset = Math.max(
       this.display.getBoundingClientRect().height,
@@ -74,6 +76,7 @@ export class Preloader {
     ) * 1.1;
     gsap.set([this.display, this.art], { autoAlpha: 1, y: displayOffset });
     gsap.set(this.copy, { autoAlpha: 0, y: 28 });
+    this.startAgencyScramble();
     gsap.set(this.divider, { scaleX: 0, transformOrigin: 'left center' });
 
     const figures = [...this.hero.querySelectorAll('[data-hero-figure]')];
@@ -108,6 +111,72 @@ export class Preloader {
     gsap.set(this.horizontal, { scaleX: value });
     gsap.set(this.vertical, { scaleY: value });
     this.progressElement.setAttribute('aria-valuenow', String(Math.round(value * 100)));
+  }
+
+  startAgencyScramble() {
+    if (!this.agencyLabel) return;
+    this.agencyText = this.agencyLabel.textContent;
+    this.agencyAriaLabel = this.agencyLabel.getAttribute('aria-label');
+    this.agencyLabel.setAttribute('aria-label', this.agencyText);
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let lastStep = -1;
+    this.scrambleTick = time => {
+      const step = Math.floor(time / 0.08);
+      if (step === lastStep) return;
+      lastStep = step;
+      this.agencyLabel.textContent = [...this.agencyText].map(character => (
+        character === ' ' ? ' ' : characters[Math.floor(Math.random() * characters.length)]
+      )).join('');
+    };
+    this.scrambleTick(0);
+    gsap.ticker.add(this.scrambleTick);
+  }
+
+  stopAgencyScramble() {
+    if (!this.scrambleTick) return;
+    gsap.ticker.remove(this.scrambleTick);
+    this.scrambleTick = null;
+    this.agencyLabel.textContent = this.agencyText;
+    if (this.agencyAriaLabel === null) this.agencyLabel.removeAttribute('aria-label');
+    else this.agencyLabel.setAttribute('aria-label', this.agencyAriaLabel);
+  }
+
+  startCopyScramble() {
+    if (!this.copy || this.copyScrambleTick) return;
+    // Simpan text node agar susunan span dan pemisahan baris tetap utuh.
+    const walker = document.createTreeWalker(this.copy, NodeFilter.SHOW_TEXT);
+    this.copyTextNodes = [];
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      this.copyTextNodes.push({ node, text: node.textContent });
+    }
+    this.copyAriaLabel = this.copy.getAttribute('aria-label');
+    this.copy.setAttribute('aria-label', this.copy.textContent.replace(/\s+/g, ' ').trim());
+    const characters = 'abcdefghijklmnopqrstuvwxyz';
+    let lastStep = -1;
+    this.copyScrambleTick = time => {
+      const step = Math.floor(time / 0.08);
+      if (step === lastStep) return;
+      lastStep = step;
+      for (const { node, text } of this.copyTextNodes) {
+        node.textContent = text.replace(/[a-z]/gi, character => {
+          const random = characters[Math.floor(Math.random() * characters.length)];
+          return character === character.toUpperCase() ? random.toUpperCase() : random;
+        });
+      }
+    };
+    this.copyScrambleTick(0);
+    gsap.ticker.add(this.copyScrambleTick);
+  }
+
+  stopCopyScramble() {
+    if (!this.copyScrambleTick) return;
+    gsap.ticker.remove(this.copyScrambleTick);
+    this.copyScrambleTick = null;
+    for (const { node, text } of this.copyTextNodes) node.textContent = text;
+    if (this.copyAriaLabel === null) this.copy.removeAttribute('aria-label');
+    else this.copy.setAttribute('aria-label', this.copyAriaLabel);
+    this.copyTextNodes = [];
   }
 
   setProgress(value, onComplete) {
@@ -184,6 +253,12 @@ export class Preloader {
           rotation: 360,
           duration: timing.travel,
         }, 0)
+        // Logo baru menguat setelah selesai menempati posisi navbar.
+        .to(this.logo, {
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        }, timing.travel)
         .to(this.photos.map(photo => photo.figure), {
           x: 0,
           y: 0,
@@ -206,11 +281,15 @@ export class Preloader {
           stagger: 0.07,
           ease: 'power3.out',
         }, 2.8)
-        .to(this.photos.map(photo => photo.figure.querySelector('figcaption')), {
-          color: '#2a2a2a',
-          duration: 1.1,
-        }, 2.8)
-        .to(this.copy, { autoAlpha: 1, y: 0, duration: 1.2 }, 3)
+        // Acakan dimulai sejak preload dan berhenti saat foto kedua tiba.
+        .call(() => this.stopAgencyScramble(), [], timing.travel + 0.24)
+        .to(this.copy, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1.2,
+          onStart: () => this.startCopyScramble(),
+          onComplete: () => this.stopCopyScramble(),
+        }, 3)
         .to([this.display, this.art], {
           y: 0,
           duration: timing.display,
@@ -227,6 +306,8 @@ export class Preloader {
     window.clearTimeout(this.assetTimeout);
     this.events?.abort();
     this.progressTween?.kill();
+    this.stopAgencyScramble();
+    this.stopCopyScramble();
     this.context?.revert();
     for (const { figure, originalStyle } of this.photos) {
       figure.classList.remove('preloader__figure', 'preloader__figure--left');

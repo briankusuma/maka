@@ -60,10 +60,10 @@
 
       <nav aria-label="Main navigation">
         <ul class="navigation">
-          <li class="navigation__item"><a class="navigation__link navigation__link--active" href="#home" aria-current="page">Home</a></li>
-          <li class="navigation__item"><a class="navigation__link" href="#about">About us</a></li>
-          <li class="navigation__item"><a class="navigation__link" href="#portfolio">Portfolio</a></li>
-          <li class="navigation__item"><a class="navigation__link" href="#contact">Contact</a></li>
+          <li class="navigation__item"><a data-cipher-link class="navigation__link navigation__link--active" href="#home" aria-current="page">Home</a></li>
+          <li class="navigation__item"><a data-cipher-link class="navigation__link" href="#about">About us</a></li>
+          <li class="navigation__item"><a data-cipher-link class="navigation__link" href="#portfolio">Portfolio</a></li>
+          <li class="navigation__item"><a data-cipher-link class="navigation__link" href="#contact">Contact</a></li>
         </ul>
       </nav>
 
@@ -160,7 +160,7 @@
         </div>
 
         <figure class="hero__figure hero__figure--agency" data-hero-figure data-pose-sequence="auto">
-          <figcaption class="hero__caption"><span>Creative Agency</span><span>(est 2020)</span></figcaption>
+          <figcaption class="hero__caption"><span data-hero-agency-label>Creative Agency</span><span>(est 2020)</span></figcaption>
           <div class="hero__image-mask">
             <img
               class="hero__image hero__pose hero__pose--first"
@@ -249,7 +249,7 @@
             </span>
           </h2>
 
-          <p class="introduction__statement" data-reveal>
+          <p class="introduction__statement" data-cipher-reveal>
             We are a creative agency focused on building impactful brands through
             strategy, design, and digital innovation. Our approach combines
             aesthetics with performance — ensuring every project not only looks
@@ -400,85 +400,87 @@
 
       <!-- STATISTICS: background full-width, konten maksimal 1440px. -->
       <section class="statistics" aria-labelledby="statistics-title" data-statistics>
-        <div class="statistics__background" aria-hidden="true">
-          <img
-            class="statistics__image"
-            src="./assets/images/studio/creative-exploration.png"
-            width="1440"
-            height="848"
-            alt=""
-            loading="lazy"
-          />
-          <img
-            class="statistics__image statistics__image--gaze"
-            src="./assets/images/studio/maka-background-gaze.png"
-            width="1634"
-            height="963"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            data-statistics-gaze
-          />
-        </div>
-
-        <img
-          class="statistics__divider"
-          src="./assets/images/studio/statistics-divider.svg"
-          width="1440"
-          height="1"
-          alt=""
-          aria-hidden="true"
-        />
-
-        <div class="layout-container statistics__content">
-          <div class="statistics__top">
-            <div class="statistics__metric" data-statistic>
-              <h2 class="statistics__label" id="statistics-title">Years of Creative Exploration</h2>
-              <p class="statistics__number" aria-label="More than 6 years">
-                <span data-count="6" aria-hidden="true"><span data-count-value>6</span></span><span aria-hidden="true">+</span>
-              </p>
-            </div>
-
-            <p class="statistics__philosophy">
-              <span class="statistics__copy-line statistics__copy-line--project">Every project <span>is a</span></span>
-              <span class="statistics__copy-line">balance of <span>creativity</span></span>
-              <span class="statistics__copy-line statistics__copy-line--short">and <span>strategy.</span></span>
-            </p>
+        <div class="statistics__surface" data-statistics-surface>
+          <div class="statistics__background" aria-hidden="true">
+            <img
+              class="statistics__image"
+              src="./assets/images/studio/creative-exploration.png"
+              width="1440"
+              height="848"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              class="statistics__image statistics__image--gaze"
+              src="./assets/images/studio/maka-background-gaze.png"
+              width="1634"
+              height="963"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              data-statistics-gaze
+            />
           </div>
 
-          <div class="statistics__bottom">
-            <div class="statistics__invitation">
-              <p class="statistics__description">
-                <span class="statistics__copy-line statistics__copy-line--intro">We collaborate <span>with</span></span>
-                <span>forward-thinking brands to</span>
-                <span class="statistics__copy-line">create <span>meaningful</span> <span>digital</span></span>
-                <span>experiences.</span>
-              </p>
+          <img
+            class="statistics__divider"
+            src="./assets/images/studio/statistics-divider.svg"
+            width="1440"
+            height="1"
+            alt=""
+            aria-hidden="true"
+          />
 
-              <a class="statistics__contact" href="#contact">
-                <span>Connect with MAKA</span>
-                <img
-                  class="statistics__arrow"
-                  src="./assets/icons/arrow-right.svg"
-                  width="20"
-                  height="20"
-                  alt=""
-                />
-              </a>
-            </div>
+          <div class="layout-container statistics__content">
+            <div class="statistics__top">
+              <div class="statistics__metric" data-statistic>
+                <h2 class="statistics__label" id="statistics-title">Years of Creative Exploration</h2>
+                <p class="statistics__number" aria-label="More than 6 years">
+                  <span data-count="6" aria-hidden="true"><span data-count-value>6</span></span><span aria-hidden="true">+</span>
+                </p>
+              </div>
 
-            <div class="statistics__metric" data-statistic>
-              <h3 class="statistics__label">Happy Clients</h3>
-              <p class="statistics__number" aria-label="More than 89 happy clients">
-                <span data-count="89" aria-hidden="true"><span data-count-value>89</span></span><span aria-hidden="true">+</span>
+              <p class="statistics__philosophy">
+                <span class="statistics__copy-line statistics__copy-line--project">Every project <span>is a</span></span>
+                <span class="statistics__copy-line">balance of <span>creativity</span></span>
+                <span class="statistics__copy-line statistics__copy-line--short">and <span>strategy.</span></span>
               </p>
             </div>
 
-            <div class="statistics__metric" data-statistic>
-              <h3 class="statistics__label">Projects Delivered</h3>
-              <p class="statistics__number" aria-label="More than 120 projects delivered">
-                <span data-count="120" aria-hidden="true"><span data-count-value>120</span></span><span aria-hidden="true">+</span>
-              </p>
+            <div class="statistics__bottom">
+              <div class="statistics__invitation">
+                <p class="statistics__description">
+                  <span class="statistics__copy-line statistics__copy-line--intro">We collaborate <span>with</span></span>
+                  <span>forward-thinking brands to</span>
+                  <span class="statistics__copy-line">create <span>meaningful</span> <span>digital</span></span>
+                  <span>experiences.</span>
+                </p>
+
+                <a class="statistics__contact" href="#contact">
+                  <span>Connect with MAKA</span>
+                  <img
+                    class="statistics__arrow"
+                    src="./assets/icons/arrow-right.svg"
+                    width="20"
+                    height="20"
+                    alt=""
+                  />
+                </a>
+              </div>
+
+              <div class="statistics__metric" data-statistic>
+                <h3 class="statistics__label">Happy Clients</h3>
+                <p class="statistics__number" aria-label="More than 89 happy clients">
+                  <span data-count="89" aria-hidden="true"><span data-count-value>89</span></span><span aria-hidden="true">+</span>
+                </p>
+              </div>
+
+              <div class="statistics__metric" data-statistic>
+                <h3 class="statistics__label">Projects Delivered</h3>
+                <p class="statistics__number" aria-label="More than 120 projects delivered">
+                  <span data-count="120" aria-hidden="true"><span data-count-value>120</span></span><span aria-hidden="true">+</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -823,85 +825,87 @@
 
     <!-- FOOTER: destinations for social/legal pages are not supplied yet. -->
     <footer class="site-footer" id="contact" aria-labelledby="contact-title" data-footer>
-      <h2 class="u-sr-only" id="contact-title">Connect with MAKA Studio</h2>
-      <img class="site-footer__divider site-footer__divider--top" src="./assets/images/footer/divider-full.svg" width="1440" height="1" alt="" />
-      <p class="site-footer__wordmark" aria-hidden="true">M@KASTD</p>
-      <img class="site-footer__divider site-footer__divider--bottom" src="./assets/images/footer/divider-full.svg" width="1440" height="1" alt="" />
+      <div class="site-footer__surface" data-footer-surface>
+        <h2 class="u-sr-only" id="contact-title">Connect with MAKA Studio</h2>
+        <img class="site-footer__divider site-footer__divider--top" src="./assets/images/footer/divider-full.svg" width="1440" height="1" alt="" />
+        <p class="site-footer__wordmark" aria-hidden="true">M@KASTD</p>
+        <img class="site-footer__divider site-footer__divider--bottom" src="./assets/images/footer/divider-full.svg" width="1440" height="1" alt="" />
 
-      <div class="layout-container site-footer__content">
-        <ul class="site-footer__socials" aria-label="Social platforms">
-          <li><span class="site-footer__social" role="img" aria-label="Dribbble"><img src="./assets/icons/dribbble.svg" width="26" height="26" alt="" /></span></li>
-          <li><span class="site-footer__social" role="img" aria-label="Instagram"><img src="./assets/icons/instagram.svg" width="26" height="26" alt="" /></span></li>
-          <li><span class="site-footer__social" role="img" aria-label="LinkedIn"><img src="./assets/icons/linkedin.svg" width="26" height="26" alt="" /></span></li>
-        </ul>
+        <div class="layout-container site-footer__content">
+          <ul class="site-footer__socials" aria-label="Social platforms">
+            <li><span class="site-footer__social" role="img" aria-label="Dribbble"><img src="./assets/icons/dribbble.svg" width="26" height="26" alt="" /></span></li>
+            <li><span class="site-footer__social" role="img" aria-label="Instagram"><img src="./assets/icons/instagram.svg" width="26" height="26" alt="" /></span></li>
+            <li><span class="site-footer__social" role="img" aria-label="LinkedIn"><img src="./assets/icons/linkedin.svg" width="26" height="26" alt="" /></span></li>
+          </ul>
 
-        <div class="site-footer__main">
-          <div class="site-footer__identity">
-            <p class="site-footer__tagline"><span>Designed with strategy</span><span>Built with purpose</span></p>
-            <p class="site-footer__copyright"><span>© 2026 MAKA Studio</span><span>All rights reserved</span></p>
-          </div>
+          <div class="site-footer__main">
+            <div class="site-footer__identity">
+              <p class="site-footer__tagline"><span>Designed with strategy</span><span>Built with purpose</span></p>
+              <p class="site-footer__copyright"><span>© 2026 MAKA Studio</span><span>All rights reserved</span></p>
+            </div>
 
-          <div class="site-footer__right">
-            <nav class="site-footer__navigation" aria-label="Footer navigation">
-              <div class="site-footer__group">
-                <h3 class="site-footer__group-title">Company</h3>
-                <ul class="site-footer__links">
-                  <li><a href="#about">About us</a></li>
-                  <li><a href="#why-strategy">Our process</a></li>
-                  <li><span>Careers</span></li>
-                  <li><span>Blog</span></li>
-                  <li><a href="mailto:hellomaka@studio.com">Contact</a></li>
-                </ul>
+            <div class="site-footer__right">
+              <nav class="site-footer__navigation" aria-label="Footer navigation">
+                <div class="site-footer__group">
+                  <h3 class="site-footer__group-title">Company</h3>
+                  <ul class="site-footer__links">
+                    <li><a data-cipher-link href="#about">About us</a></li>
+                    <li><a data-cipher-link href="#why-strategy">Our process</a></li>
+                    <li><span>Careers</span></li>
+                    <li><span>Blog</span></li>
+                    <li><a data-cipher-link href="mailto:hellomaka@studio.com">Contact</a></li>
+                  </ul>
+                </div>
+                <div class="site-footer__group">
+                  <h3 class="site-footer__group-title">Services</h3>
+                  <ul class="site-footer__links site-footer__links--right">
+                    <li><a data-cipher-link href="#service-link-branding">Branding</a></li>
+                    <li><a data-cipher-link href="#service-link-uiux">UI/UX Design</a></li>
+                    <li><a data-cipher-link href="#service-link-creative">Creative Direction</a></li>
+                    <li><a data-cipher-link href="#service-link-development">Development</a></li>
+                  </ul>
+                </div>
+                <div class="site-footer__group">
+                  <h3 class="site-footer__group-title">Work</h3>
+                  <ul class="site-footer__links site-footer__links--right">
+                    <li><a data-cipher-link href="#portfolio">Case Studies</a></li>
+                    <li><a data-cipher-link href="#portfolio">Selected Projects</a></li>
+                    <li><a data-cipher-link href="#testimonials-title">Client Stories</a></li>
+                    <li><a data-cipher-link href="#portfolio">Portfolio</a></li>
+                  </ul>
+                </div>
+              </nav>
+
+              <div class="site-footer__cta-row">
+                <img class="site-footer__cta-line" src="./assets/images/footer/divider-cta.svg" width="962" height="1" alt="" />
+                <a data-cipher-link class="site-footer__cta" href="mailto:hellomaka@studio.com">
+                  Connect with MAKA
+                  <img src="./assets/icons/arrow-right.svg" width="20" height="20" alt="" />
+                </a>
               </div>
-              <div class="site-footer__group">
-                <h3 class="site-footer__group-title">Services</h3>
-                <ul class="site-footer__links site-footer__links--right">
-                  <li><a href="#service-link-branding">Branding</a></li>
-                  <li><a href="#service-link-uiux">UI/UX Design</a></li>
-                  <li><a href="#service-link-creative">Creative Direction</a></li>
-                  <li><a href="#service-link-development">Development</a></li>
-                </ul>
-              </div>
-              <div class="site-footer__group">
-                <h3 class="site-footer__group-title">Work</h3>
-                <ul class="site-footer__links site-footer__links--right">
-                  <li><a href="#portfolio">Case Studies</a></li>
-                  <li><a href="#portfolio">Selected Projects</a></li>
-                  <li><a href="#testimonials-title">Client Stories</a></li>
-                  <li><a href="#portfolio">Portfolio</a></li>
-                </ul>
-              </div>
-            </nav>
-
-            <div class="site-footer__cta-row">
-              <img class="site-footer__cta-line" src="./assets/images/footer/divider-cta.svg" width="962" height="1" alt="" />
-              <a class="site-footer__cta" href="mailto:hellomaka@studio.com">
-                Connect with MAKA
-                <img src="./assets/icons/arrow-right.svg" width="20" height="20" alt="" />
-              </a>
             </div>
           </div>
+
+          <address class="site-footer__contacts">
+            <a data-cipher-link href="mailto:hellomaka@studio.com">hellomaka@studio.com</a>
+            <a data-cipher-link href="tel:0274817696">(0274) 817696</a>
+            <span>Palagan street no.12, Indonesia</span>
+          </address>
+
+          <figure class="site-footer__photo">
+            <figcaption class="site-footer__photo-caption"><span>/**</span><span>(/01)</span></figcaption>
+            <div class="site-footer__image-frame">
+              <img class="site-footer__image" src="./assets/images/footer/eye-detail.png" width="284" height="159" alt="Close-up editorial photograph of a blue eye" loading="lazy" />
+              <img class="site-footer__image site-footer__image--right" src="./assets/images/footer/eye-detail-right.png" width="284" height="159" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+            </div>
+          </figure>
+
+          <ul class="site-footer__legal" aria-label="Legal policies">
+            <li>Privacy Policy</li>
+            <li>Terms of Service</li>
+            <li>Cookie Policy</li>
+          </ul>
         </div>
-
-        <address class="site-footer__contacts">
-          <a href="mailto:hellomaka@studio.com">hellomaka@studio.com</a>
-          <a href="tel:0274817696">(0274) 817696</a>
-          <span>Palagan street no.12, Indonesia</span>
-        </address>
-
-        <figure class="site-footer__photo">
-          <figcaption class="site-footer__photo-caption"><span>/**</span><span>(/01)</span></figcaption>
-          <div class="site-footer__image-frame">
-            <img class="site-footer__image" src="./assets/images/footer/eye-detail.png" width="284" height="159" alt="Close-up editorial photograph of a blue eye" loading="lazy" />
-            <img class="site-footer__image site-footer__image--right" src="./assets/images/footer/eye-detail-right.png" width="284" height="159" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-          </div>
-        </figure>
-
-        <ul class="site-footer__legal" aria-label="Legal policies">
-          <li>Privacy Policy</li>
-          <li>Terms of Service</li>
-          <li>Cookie Policy</li>
-        </ul>
       </div>
     </footer>
   </body>

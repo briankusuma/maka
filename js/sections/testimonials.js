@@ -1,4 +1,5 @@
 import { gsap } from '../core/animation.js';
+import { initHoverCipher } from '../interactions/hover-cipher.js';
 
 export class Testimonials {
   constructor(root, requestRefresh) {
@@ -14,6 +15,13 @@ export class Testimonials {
     if (!this.root || this.events) return;
     this.events = new AbortController();
     this.items = [...this.root.querySelectorAll('[data-testimonial]')];
+    this.destroyCipher = initHoverCipher(this.root, {
+      gsap,
+      itemSelector: '[data-testimonial]',
+      textSelector: '.testimonials__number, .testimonials__client, '
+        + '.testimonials__field > span:not(.testimonials__field-label), '
+        + '.testimonials__quotation, .testimonials__author',
+    });
 
     // Sedikit jeda mencegah panel berganti saat pointer hanya melintas.
     let lastPosition = '';
@@ -133,6 +141,7 @@ export class Testimonials {
   }
 
   destroy() {
+    this.destroyCipher?.();
     window.clearTimeout(this.hoverTimer);
     this.events?.abort();
     this.events = null;

@@ -78,3 +78,5 @@ Sequence yang sama dipakai di foto panel 36’: otomatis berjalan saat accordion
 Foto kiri hero dan accordion 01 memakai `model-left-pose-sequence-5` dengan pengaturan yang sama: 600ms per frame, autoplay untuk hero, play saat accordion terbuka dan terlihat untuk panel 01.
 
 Accordion 02 (Orbitly) menggunakan lima pose dari `assets/images/hero/accordion-pose-sequence-5/`, dengan interval 600ms dan lifecycle yang sama seperti panel 01/03.
+
+Splash cursor berada di `js/interactions/splash-cursor.js`, diadaptasi dari [React Bits SplashCursor](https://github.com/DavidHDev/react-bits/tree/main/src/content/Animations/SplashCursor). Lisensi sumber disimpan di `js/interactions/splash-cursor.LICENSE.txt`. Warna `#EB2E2E`, ukuran, intensitas, dan durasi jejak diatur di objek `settings` dalam `createFluid()`. Efek WebGL2 dimulai pada gerakan mouse setelah preload, memakai ticker GSAP bersama, berhenti setelah idle atau tab tersembunyi, serta dibersihkan pada HMR. Perangkat sentuh, reduced motion, dan browser tanpa dukungan WebGL2 menampilkan cursor normal tanpa efek.

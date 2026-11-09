@@ -9,6 +9,10 @@ import { Projects } from '../sections/projects.js';
 import { Testimonials } from '../sections/testimonials.js';
 import { initStatisticsGaze } from '../interactions/statistics-gaze.js';
 import { initHeroPoses } from '../interactions/hero-poses.js';
+import { initIntroduction } from '../sections/introduction.js';
+import { initSplashCursor } from '../interactions/splash-cursor.js';
+import { initHoverCipher } from '../interactions/hover-cipher.js';
+import { initScrollUnderlay } from '../interactions/scroll-underlay.js';
 
 export class LandingPage {
   constructor(root) {
@@ -20,6 +24,8 @@ export class LandingPage {
     this.testimonials = null;
     this.destroyStatisticsGaze = null;
     this.destroyHeroPoses = null;
+    this.destroySplashCursor = null;
+    this.destroyLinkCipher = null;
     this.refreshPending = false;
     this.requestRefresh = this.requestRefresh.bind(this);
     this.flushRefresh = this.flushRefresh.bind(this);
@@ -33,6 +39,11 @@ export class LandingPage {
     this.destroyClock = initClock(this.root);
     this.destroyHeroPoses = initHeroPoses(this.root);
     this.destroyStatisticsGaze = initStatisticsGaze(this.root);
+    this.destroySplashCursor = initSplashCursor(this.root, { gsap });
+    this.destroyLinkCipher = initHoverCipher(this.root, {
+      gsap,
+      itemSelector: '[data-cipher-link]',
+    });
     this.projects = new Projects(
       this.root.querySelector('[data-projects]'),
       this.requestRefresh,
@@ -58,10 +69,27 @@ export class LandingPage {
       initReveals(this.root, services);
       initMarquee(this.root, services);
       const destroyStatistics = initStatistics(this.root, services);
+      const destroyIntroduction = initIntroduction(
+        this.root.querySelector('[data-cipher-reveal]'),
+        { gsap, ScrollTrigger, requestRefresh: this.requestRefresh },
+      );
+      const destroyFooter = initScrollUnderlay(this.root.querySelector('[data-footer]'), {
+        gsap,
+        requestRefresh: this.requestRefresh,
+        surfaceSelector: '[data-footer-surface]',
+      });
+      const destroyStatisticsUnderlay = initScrollUnderlay(this.root.querySelector('[data-statistics]'), {
+        gsap,
+        requestRefresh: this.requestRefresh,
+        surfaceSelector: '[data-statistics-surface]',
+      });
 
       // matchMedia me-revert tween/trigger; cleanup menghentikan Lenis.
       return () => {
         preloader.destroy();
+        destroyFooter();
+        destroyStatisticsUnderlay();
+        destroyIntroduction();
         destroyStatistics?.();
         scroll.destroy();
       };
@@ -100,6 +128,10 @@ export class LandingPage {
   }
 
   destroy() {
+    this.destroyLinkCipher?.();
+    this.destroyLinkCipher = null;
+    this.destroySplashCursor?.();
+    this.destroySplashCursor = null;
     this.destroyHeroPoses?.();
     this.destroyHeroPoses = null;
     this.destroyStatisticsGaze?.();
