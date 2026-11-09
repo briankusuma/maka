@@ -27,6 +27,20 @@
     ></script>
   </head>
   <body>
+    <!-- Progressive enhancement: tersembunyi sampai controller siap. -->
+    <div class="preloader" data-preloader hidden>
+      <div class="preloader__backdrop" data-preloader-backdrop></div>
+      <div class="preloader__logo" data-preloader-logo aria-hidden="true">
+        <img src="./assets/images/preloader/logo.svg" width="960" height="960" alt="" />
+      </div>
+      <div class="preloader__line preloader__line--horizontal" data-preloader-horizontal aria-hidden="true">
+        <img src="./assets/images/preloader/progress-horizontal.svg" width="1440" height="1" alt="" />
+      </div>
+      <div class="preloader__line preloader__line--vertical" data-preloader-vertical aria-hidden="true">
+        <img src="./assets/images/preloader/progress-vertical.svg" width="848" height="1" alt="" />
+      </div>
+      <div class="u-sr-only" role="progressbar" aria-label="Loading MAKA Studio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-preloader-progress></div>
+    </div>
     <a
       class="skip-link"
       href="#main"

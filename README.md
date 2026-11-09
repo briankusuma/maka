@@ -51,6 +51,8 @@ maka/
 
 ## Memperbarui
 
+Preloader berada di `js/sections/preloader.js`; objek `timing` mengatur tempo utamanya. Dua foto tetap di DOM hero dan ditempatkan ke staging melalui transform sesuai frame `3870:2925`, dengan sequence pose tetap berjalan dan urutan layer wordmark tidak berubah. Progres dua garis abu-abu transparan mengikuti decode sepuluh frame hero, logo, aset wordmark, dan kesiapan font. Setelah 100%, logo berputar 360° menuju navbar dan foto berpindah selama 4,2 detik; navigasi turun, display naik, dan divider hero terbentang. Resize, reduced motion, deep-link, kegagalan aset, atau timeout memulihkan halaman tanpa mengunci scroll. Buka URL utama tanpa hash untuk melihat intro dari awal.
+
 Hero kanan menggunakan lima file `assets/images/hero/model-pose-sequence-5/pose-01.png` sampai `pose-05.png`. Loop 600ms per pose dikelola `js/interactions/hero-poses.js`, tanpa tombol Pause, berhenti di luar viewport/tab, dan menampilkan frame pertama untuk reduced motion. Durasi gaze statistik 1,2 detik masuk / 1,35 detik keluar; offset angka mengikuti titik tengah opacity background.
 
 Efek gaze statistik berada di `js/interactions/statistics-gaze.js`: hover CTA kiri atau fokus keyboard menampilkan `assets/images/studio/maka-background-gaze.png`, lalu kembali ke foto default saat keluar. Transisi memakai crossfade dua gambar, bukan image sequence. Gambar di-decode sebelum dipakai dan cleanup membatalkan listener/tween serta callback async yang terlambat.

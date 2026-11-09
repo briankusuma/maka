@@ -2,7 +2,7 @@ import { gsap, ScrollTrigger, motion } from './animation.js';
 import { SmoothScroll } from './smooth-scroll.js';
 import { initReveals } from '../interactions/reveal.js';
 import { initMarquee } from '../interactions/marquee.js';
-import { initHero } from '../sections/hero.js';
+import { Preloader } from '../sections/preloader.js';
 import { initClock } from '../interactions/clock.js';
 import { initStatistics } from '../sections/statistics.js';
 import { Projects } from '../sections/projects.js';
@@ -50,13 +50,18 @@ export class LandingPage {
       scroll.init();
 
       const services = { gsap, motion };
-      initHero(this.root, services);
+      const preloader = new Preloader(this.root, {
+        scroll,
+        requestRefresh: this.requestRefresh,
+      });
+      preloader.init();
       initReveals(this.root, services);
       initMarquee(this.root, services);
       const destroyStatistics = initStatistics(this.root, services);
 
       // matchMedia me-revert tween/trigger; cleanup menghentikan Lenis.
       return () => {
+        preloader.destroy();
         destroyStatistics?.();
         scroll.destroy();
       };
