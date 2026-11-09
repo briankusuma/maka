@@ -13,6 +13,7 @@ import { initIntroduction } from '../sections/introduction.js';
 import { initSplashCursor } from '../interactions/splash-cursor.js';
 import { initHoverCipher } from '../interactions/hover-cipher.js';
 import { initScrollUnderlay } from '../interactions/scroll-underlay.js';
+import { initProjectsMotion } from '../sections/projects-motion.js';
 
 export class LandingPage {
   constructor(root) {
@@ -69,6 +70,11 @@ export class LandingPage {
       initReveals(this.root, services);
       initMarquee(this.root, services);
       const destroyStatistics = initStatistics(this.root, services);
+      const destroyProjectsMotion = initProjectsMotion(this.root.querySelector('[data-projects]'), {
+        gsap,
+        requestRefresh: this.requestRefresh,
+        scroll,
+      });
       const destroyIntroduction = initIntroduction(
         this.root.querySelector('[data-cipher-reveal]'),
         { gsap, ScrollTrigger, requestRefresh: this.requestRefresh },
@@ -95,6 +101,7 @@ export class LandingPage {
       // matchMedia me-revert tween/trigger; cleanup menghentikan Lenis.
       return () => {
         preloader.destroy();
+        destroyProjectsMotion();
         destroyFooter();
         destroyStatisticsUnderlay();
         destroyIntroduction();

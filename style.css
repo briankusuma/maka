@@ -511,6 +511,28 @@ a {
   padding-bottom: 93px;
 }
 
+.projects__morph {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.projects--motion {
+  min-height: max(848px, 100svh);
+}
+
+.projects__morph-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  max-width: none;
+  object-fit: cover;
+  transform-origin: center;
+}
+
 .projects__dividers {
   position: absolute;
   z-index: -1;
