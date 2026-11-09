@@ -73,6 +73,14 @@ export class LandingPage {
         this.root.querySelector('[data-cipher-reveal]'),
         { gsap, ScrollTrigger, requestRefresh: this.requestRefresh },
       );
+      const statisticsCiphers = [...this.root.querySelectorAll('[data-statistics-cipher]')]
+        .map(element => initIntroduction(element, {
+          gsap,
+          ScrollTrigger,
+          requestRefresh: this.requestRefresh,
+          preserveMarkup: true,
+          hover: false,
+        }));
       const destroyFooter = initScrollUnderlay(this.root.querySelector('[data-footer]'), {
         gsap,
         requestRefresh: this.requestRefresh,
@@ -90,6 +98,7 @@ export class LandingPage {
         destroyFooter();
         destroyStatisticsUnderlay();
         destroyIntroduction();
+        for (const destroyCipher of statisticsCiphers) destroyCipher();
         destroyStatistics?.();
         scroll.destroy();
       };

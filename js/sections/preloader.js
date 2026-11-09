@@ -29,9 +29,33 @@ export class Preloader {
   }
 
   init() {
-    // Deep-link dan scroll yang dipulihkan browser langsung membuka konten.
-    if (!this.overlay || !this.hero || window.scrollY > 0 || location.hash) return;
+    if (!this.overlay || !this.hero) return;
+    const reloading = performance.getEntriesByType('navigation')[0]?.type === 'reload';
+    // Deep-link biasa tetap langsung menuju section; reload selalu membuka intro.
+    if (!reloading && (window.scrollY > 0 || location.hash)) return;
     this.events = new AbortController();
+    if (reloading) {
+      this.scrollRestoration = history.scrollRestoration;
+      history.scrollRestoration = 'manual';
+      if (location.hash) {
+        history.replaceState(history.state, '', location.pathname + location.search);
+      }
+      const resetScroll = () => {
+        if (this.completed || window.scrollY === 0) return;
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        this.scroll.lenis?.scrollTo(0, { immediate: true, force: true });
+      };
+      resetScroll();
+      // Browser dapat memulihkan scroll lagi setelah load pada reload gambar/font.
+      window.addEventListener('load', resetScroll, {
+        once: true,
+        signal: this.events.signal,
+      });
+      window.addEventListener('scroll', resetScroll, {
+        passive: true,
+        signal: this.events.signal,
+      });
+    }
     this.overlay.hidden = false;
     document.documentElement.classList.add('is-preloading');
     this.scroll.lenis?.stop();
@@ -305,6 +329,10 @@ export class Preloader {
     window.clearTimeout(this.watchdog);
     window.clearTimeout(this.assetTimeout);
     this.events?.abort();
+    if (this.scrollRestoration !== undefined) {
+      history.scrollRestoration = this.scrollRestoration;
+      this.scrollRestoration = undefined;
+    }
     this.progressTween?.kill();
     this.stopAgencyScramble();
     this.stopCopyScramble();

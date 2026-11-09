@@ -1,5 +1,7 @@
 // Cipher mandiri: font dan komposisi asli tetap menjadi ukuran setiap kata.
-export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) {
+export function initIntroduction(root, {
+  gsap, ScrollTrigger, requestRefresh, preserveMarkup = false, hover = true,
+}) {
   if (!root) return () => {};
 
   const events = new AbortController();
@@ -12,6 +14,10 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
   let trigger = null;
   let lastFrame = -1;
   let ready = false;
+  let revealed = false;
+  const originalOpacity = root.style.opacity;
+  // Sembunyikan hanya setelah modul motion berhasil dipanggil; cleanup memulihkan.
+  root.style.opacity = '0';
   const trail = new Map();
   let trailRunning = false;
   let trailFrame = -1;
@@ -45,7 +51,7 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
   }
 
   function hoverTrail(event) {
-    if (!ready || tween?.isActive() || event.pointerType === 'touch'
+    if (!ready || !revealed || tween?.isActive() || event.pointerType === 'touch'
       || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const fontSize = parseFloat(getComputedStyle(root).fontSize);
     const radius = fontSize * 0.6;
@@ -88,7 +94,11 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
       letter.element.textContent = resolved || !/[a-z]/i.test(letter.character)
         ? letter.character
         : letter.alphabet[Math.floor(Math.random() * letter.alphabet.length)];
-      letter.element.style.opacity = String(0.42 + progress * 0.58);
+      // Huruf yang belum mendapat giliran tetap kosong, lalu muncul sambil decode.
+      const visible = state.progress > start;
+      letter.element.style.opacity = visible
+        ? String(Math.min(1, progress / 0.2) * (0.42 + progress * 0.58))
+        : '0';
       letter.element.style.color = resolved || !/[a-z]/i.test(letter.character) ? '' : '#EB2E2E';
     }
   }
@@ -113,6 +123,7 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
   }
 
   function showOriginal() {
+    revealed = true;
     for (const letter of letters) {
       letter.element.textContent = letter.character;
       letter.element.style.opacity = '1';
@@ -133,8 +144,7 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
     accessible.textContent = text;
     fragment.append(accessible);
 
-    for (const [index, value] of text.split(' ').entries()) {
-      if (index > 0) fragment.append(document.createTextNode(' '));
+    function createWord(value) {
       const word = document.createElement('span');
       word.className = 'cipher-reveal__word';
       word.setAttribute('aria-hidden', 'true');
@@ -142,8 +152,34 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
       source.className = 'cipher-reveal__source';
       source.textContent = value;
       word.append(source);
-      fragment.append(word);
       words.push({ word, source, letters: [] });
+      return word;
+    }
+
+    if (preserveMarkup) {
+      // Copy statistik memiliki span per baris; pertahankan grid dan jaraknya.
+      const visual = document.createDocumentFragment();
+      for (const node of originalNodes) visual.append(node.cloneNode(true));
+      const walker = document.createTreeWalker(visual, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+      for (const node of textNodes) {
+        if (!node.textContent.trim()) continue;
+        // Satu text node tetap satu flex item pada baris space-between.
+        const replacement = document.createElement('span');
+        replacement.className = 'cipher-reveal__text';
+        for (const token of node.textContent.split(/(\s+)/).filter(Boolean)) {
+          replacement.append(/\S/.test(token) ? createWord(token) : document.createTextNode(token));
+        }
+        node.replaceWith(replacement);
+      }
+      for (const child of visual.children) child.setAttribute('aria-hidden', 'true');
+      fragment.append(visual);
+    } else {
+      for (const [index, value] of text.split(' ').entries()) {
+        if (index > 0) fragment.append(document.createTextNode(' '));
+        fragment.append(createWord(value));
+      }
     }
     root.replaceChildren(fragment);
 
@@ -182,7 +218,13 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
       }
     }
     ready = true;
-    root.addEventListener('pointermove', hoverTrail, { signal: events.signal });
+    for (const { word, source } of words) {
+      source.style.opacity = '0';
+      word.classList.add('cipher-reveal__word--playing');
+    }
+    render();
+    root.style.opacity = originalOpacity;
+    if (hover) root.addEventListener('pointermove', hoverTrail, { signal: events.signal });
     trigger = ScrollTrigger.create({
       trigger: root,
       start: 'top 85%',
@@ -200,6 +242,7 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
     trigger?.kill();
     events.abort();
     root.replaceChildren(...originalNodes);
+    root.style.opacity = originalOpacity;
   });
 
   return () => {
@@ -208,5 +251,6 @@ export function initIntroduction(root, { gsap, ScrollTrigger, requestRefresh }) 
     stopTrail();
     trigger?.kill();
     root.replaceChildren(...originalNodes);
+    root.style.opacity = originalOpacity;
   };
 }
