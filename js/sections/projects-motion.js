@@ -26,6 +26,9 @@ export function initProjectsMotion(root, { gsap, requestRefresh, scroll }) {
 
     const services = root.querySelector('[data-services]');
     const firstYear = root.querySelector('.projects__year--2024');
+    const firstYearLabel = firstYear.querySelector('.projects__year-label');
+    const firstYearCards = [...firstYear.querySelectorAll('[data-project-card]')];
+    const firstYearMore = firstYear.querySelector('.projects__more');
     const secondYear = root.querySelector('.projects__year--2025');
     const metadata = secondYear.querySelectorAll('.projects__year-label, .project-card__caption, .project-card__type');
     const dividers = root.querySelector('.projects__dividers');
@@ -112,12 +115,32 @@ export function initProjectsMotion(root, { gsap, requestRefresh, scroll }) {
           ease: 'none',
           onUpdate: renderMorph,
         }, 0)
-        .fromTo([services, firstYear, dividers], { autoAlpha: 0, y: 24 }, {
+        .fromTo([services, dividers], { autoAlpha: 0, y: 24 }, {
           autoAlpha: 1,
           y: 0,
           duration: 0.65,
           stagger: 0.07,
         }, 1.35)
+        // Foto 36’ selesai berpindah pada 2.2; grup kiri baru masuk setelahnya.
+        .fromTo(firstYearLabel, { autoAlpha: 0, y: 32 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.4,
+          ease: 'power3.out',
+        }, 2.3)
+        .fromTo(firstYearCards, { autoAlpha: 0, y: 80 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: 'power3.out',
+        }, 2.4)
+        .fromTo(firstYearMore, { autoAlpha: 0, y: 24 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.4,
+          ease: 'power3.out',
+        }, 3.45)
         .fromTo(metadata, { autoAlpha: 0, y: 8 }, {
           autoAlpha: 1,
           y: 0,

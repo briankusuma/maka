@@ -1,4 +1,7 @@
-export function initStatistics(root, { gsap }) {
+import { initIntroduction } from './introduction.js';
+
+export function initStatistics(root, services) {
+  const { gsap } = services;
   const section = root.querySelector('[data-statistics]');
   if (!section) return;
 
@@ -8,31 +11,39 @@ export function initStatistics(root, { gsap }) {
   // Konteks GSAP pemanggil memiliki tween/trigger, termasuk saat HMR.
   for (const counter of counters) {
     const finalValue = Number(counter.dataset.count);
-    const state = { value: 0 };
+    const state = { progress: 0 };
     const output = counter.querySelector('[data-count-value]');
     if (!output) continue;
 
-    // Count-up memiliki nilai dasar; gaze hanya menambahkan offset hover.
-    function render(value) {
-      counter.dataset.countCurrent = String(value);
-      output.textContent = String(value + Number(section.dataset.countOffset || 0));
+    const plus = counter.nextElementSibling;
+    counter.dataset.countCurrent = String(finalValue);
+    counter.dataset.countScrambling = 'true';
+    const cipher = initIntroduction(output, { ...services, manual: true, hover: false });
+    gsap.set(plus, { opacity: 0 });
+
+    // Saat entry selesai, kepemilikan digit diserahkan kembali ke gaze.
+    function showFinal() {
+      cipher();
+      delete counter.dataset.countScrambling;
+      output.textContent = String(finalValue + Number(section.dataset.countOffset || 0));
+      gsap.set(plus, { clearProps: 'opacity' });
     }
 
     const tween = gsap.to(state, {
-      value: finalValue,
-      duration: 1.6,
-      ease: 'power2.out',
-      snap: { value: 1 },
+      progress: 1,
+      duration: 1.4,
+      ease: 'none',
       scrollTrigger: {
         trigger: counter,
-        start: 'top 95%',
+        start: 'top 85%',
         once: true,
       },
       onUpdate() {
-        render(state.value);
+        cipher.render(state.progress);
+        gsap.set(plus, { opacity: Math.min(1, state.progress * 5) });
       },
       onComplete() {
-        render(finalValue);
+        showFinal();
       },
     });
 
@@ -40,7 +51,7 @@ export function initStatistics(root, { gsap }) {
     cleanups.push(() => {
       tween.scrollTrigger?.kill();
       tween.kill();
-      render(finalValue);
+      showFinal();
       delete counter.dataset.countCurrent;
     });
   }

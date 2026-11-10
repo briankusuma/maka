@@ -1,6 +1,6 @@
 // Cipher mandiri: font dan komposisi asli tetap menjadi ukuran setiap kata.
 export function initIntroduction(root, {
-  gsap, ScrollTrigger, requestRefresh, preserveMarkup = false, hover = true,
+  gsap, ScrollTrigger, requestRefresh, preserveMarkup = false, hover = true, manual = false,
 }) {
   if (!root) return () => {};
 
@@ -84,14 +84,15 @@ export function initIntroduction(root, {
 
   function render() {
     const frame = Math.floor(state.progress * 1.4 * 14);
-    if (frame === lastFrame && state.progress < 1) return;
+    // Batas kosong/final wajib dirender meski masih berada dalam bucket frame sama.
+    if (frame === lastFrame && state.progress > 0 && state.progress < 1) return;
     lastFrame = frame;
 
     for (const [index, letter] of letters.entries()) {
       const start = (index / Math.max(1, letters.length - 1)) * 0.7;
       const progress = Math.min(1, Math.max(0, (state.progress - start) / 0.3));
       const resolved = progress === 1;
-      letter.element.textContent = resolved || !/[a-z]/i.test(letter.character)
+      letter.element.textContent = resolved || !/[a-z0-9]/i.test(letter.character)
         ? letter.character
         : letter.alphabet[Math.floor(Math.random() * letter.alphabet.length)];
       // Huruf yang belum mendapat giliran tetap kosong, lalu muncul sambil decode.
@@ -99,7 +100,7 @@ export function initIntroduction(root, {
       letter.element.style.opacity = visible
         ? String(Math.min(1, progress / 0.2) * (0.42 + progress * 0.58))
         : '0';
-      letter.element.style.color = resolved || !/[a-z]/i.test(letter.character) ? '' : '#EB2E2E';
+      letter.element.style.color = resolved || !/[a-z0-9]/i.test(letter.character) ? '' : '#EB2E2E';
     }
   }
 
@@ -124,6 +125,7 @@ export function initIntroduction(root, {
 
   function showOriginal() {
     revealed = true;
+    lastFrame = -1;
     for (const letter of letters) {
       letter.element.textContent = letter.character;
       letter.element.style.opacity = '1';
@@ -205,7 +207,8 @@ export function initIntroduction(root, {
         element.style.width = `${width / fontSize}em`;
         word.append(element);
         const lowercase = character === character.toLowerCase();
-        const alphabet = /[ilItfjr]/.test(character) ? 'iljtfr' : /[mwMW]/.test(character) ? 'mw' : 'aceosuvxz';
+        const alphabet = /\d/.test(character) ? '0123456789'
+          : /[ilItfjr]/.test(character) ? 'iljtfr' : /[mwMW]/.test(character) ? 'mw' : 'aceosuvxz';
         const letter = {
           element,
           character,
@@ -225,12 +228,16 @@ export function initIntroduction(root, {
     render();
     root.style.opacity = originalOpacity;
     if (hover) root.addEventListener('pointermove', hoverTrail, { signal: events.signal });
-    trigger = ScrollTrigger.create({
-      trigger: root,
-      start: 'top 85%',
-      onEnter: play,
-      onEnterBack: play,
-    });
+    if (manual) {
+      if (state.progress >= 1) showOriginal();
+    } else {
+      trigger = ScrollTrigger.create({
+        trigger: root,
+        start: 'top 85%',
+        onEnter: play,
+        onEnterBack: play,
+      });
+    }
     requestRefresh();
   }
 
@@ -245,7 +252,7 @@ export function initIntroduction(root, {
     root.style.opacity = originalOpacity;
   });
 
-  return () => {
+  const destroy = () => {
     events.abort();
     tween?.kill();
     stopTrail();
@@ -253,4 +260,30 @@ export function initIntroduction(root, {
     root.replaceChildren(...originalNodes);
     root.style.opacity = originalOpacity;
   };
+  // Scene pinned dapat mengendalikan decode dari progress scroll yang sama.
+  destroy.render = progress => {
+    state.progress = gsap.utils.clamp(0, 1, progress);
+    if (!ready || events.signal.aborted) return;
+    if (state.progress >= 1) {
+      showOriginal();
+      return;
+    }
+    for (const { word, source } of words) {
+      source.style.opacity = '0';
+      word.classList.add('cipher-reveal__word--playing');
+    }
+    if (state.progress === 0) {
+      // Reverse scroll harus benar-benar kosong, bukan menyisakan glyph awal decode.
+      for (const letter of letters) {
+        letter.element.textContent = letter.character;
+        letter.element.style.opacity = '0';
+        letter.element.style.color = '';
+      }
+      revealed = false;
+      lastFrame = -1;
+      return;
+    }
+    render();
+  };
+  return destroy;
 }

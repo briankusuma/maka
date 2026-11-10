@@ -23,7 +23,9 @@ export function initStatisticsGaze(root) {
     counters.forEach((counter, index) => {
       const base = Number(counter.dataset.count);
       const current = Number(counter.dataset.countCurrent ?? base);
-      counter.querySelector('[data-count-value]').textContent = String(current + offset);
+      if (counter.dataset.countScrambling !== 'true') {
+        counter.querySelector('[data-count-value]').textContent = String(current + offset);
+      }
       const label = originalLabels[index];
       if (label) {
         counter.parentElement.setAttribute('aria-label', label.replace(String(base), String(base + offset)));

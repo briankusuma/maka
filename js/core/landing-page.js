@@ -15,6 +15,7 @@ import { initHoverCipher } from '../interactions/hover-cipher.js';
 import { initScrollUnderlay } from '../interactions/scroll-underlay.js';
 import { initProjectsMotion } from '../sections/projects-motion.js';
 import { initHeroScroll } from '../sections/hero-scroll.js';
+import { initWhyChoose } from '../sections/why-choose.js';
 
 export class LandingPage {
   constructor(root) {
@@ -62,7 +63,7 @@ export class LandingPage {
       const scroll = new SmoothScroll();
       scroll.init();
 
-      const services = { gsap, motion };
+      const services = { gsap, motion, ScrollTrigger, requestRefresh: this.requestRefresh };
       const preloader = new Preloader(this.root, {
         scroll,
         requestRefresh: this.requestRefresh,
@@ -79,6 +80,9 @@ export class LandingPage {
         gsap,
         requestRefresh: this.requestRefresh,
         scroll,
+      });
+      const destroyWhyChoose = initWhyChoose(this.root.querySelector('[data-why-choose]'), {
+        gsap, ScrollTrigger, requestRefresh: this.requestRefresh, scroll,
       });
       const destroyIntroduction = initIntroduction(
         this.root.querySelector('[data-cipher-reveal]'),
@@ -108,6 +112,7 @@ export class LandingPage {
         preloader.destroy();
         destroyHeroScroll();
         destroyProjectsMotion();
+        destroyWhyChoose();
         destroyFooter();
         destroyStatisticsUnderlay();
         destroyIntroduction();

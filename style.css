@@ -1455,6 +1455,34 @@ body:has(.project-viewer[open]) {
   min-height: 848px;
 }
 
+.why-choose--motion {
+  min-height: max(848px, 100svh);
+}
+
+.why-choose__morph {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.why-choose__morph::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: rgb(0 0 0 / 10%);
+}
+
+.why-choose__morph-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  max-width: none;
+  transform-origin: center;
+}
+
 .why-choose__introduction {
   position: relative;
   padding-top: 113px;
