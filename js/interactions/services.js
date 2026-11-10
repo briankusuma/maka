@@ -22,7 +22,9 @@ export function initServices(root) {
   }
 
   function scrambleMenu(item) {
-    if (reducedMotion.matches) return;
+    if (reducedMotion.matches || !window.matchMedia(
+      '(min-width: 1200px) and (hover: hover) and (pointer: fine)',
+    ).matches || window.matchMedia('(any-pointer: coarse)').matches) return;
     stopScramble(item);
     const timeline = gsap.timeline({ onComplete: () => stopScramble(item) });
     sequences.set(item, timeline);

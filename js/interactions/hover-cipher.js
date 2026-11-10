@@ -52,7 +52,7 @@ export function initHoverCipher(root, { gsap, itemSelector, textSelector = null 
     });
   }
 
-  media.add('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
+  media.add('(min-width: 1200px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
     const hoverEvents = new AbortController();
     for (const record of records) {
       record.item.addEventListener('pointerenter', event => {

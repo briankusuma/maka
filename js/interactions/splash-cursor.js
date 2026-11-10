@@ -253,7 +253,7 @@ const hsv = (h, s, v) => {
 export function initSplashCursor(root, { gsap }) {
   const media = gsap.matchMedia();
   media.add({
-    desktop: '(min-width: 1025px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
+    desktop: '(min-width: 1200px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
     touch: '(any-pointer: coarse)',
   }, context => {
     if (!context.conditions.desktop || context.conditions.touch) return;

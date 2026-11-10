@@ -16,6 +16,7 @@ import { initScrollUnderlay } from '../interactions/scroll-underlay.js';
 import { initProjectsMotion } from '../sections/projects-motion.js';
 import { initHeroScroll } from '../sections/hero-scroll.js';
 import { initWhyChoose } from '../sections/why-choose.js';
+import { initCompactMotion } from '../interactions/compact-motion.js';
 
 export class LandingPage {
   constructor(root) {
@@ -30,6 +31,7 @@ export class LandingPage {
     this.destroySplashCursor = null;
     this.destroyLinkCipher = null;
     this.refreshPending = false;
+    this.preloaderSeen = false;
     this.requestRefresh = this.requestRefresh.bind(this);
     this.flushRefresh = this.flushRefresh.bind(this);
   }
@@ -59,7 +61,18 @@ export class LandingPage {
     this.testimonials.init();
     this.media = gsap.matchMedia();
 
-    this.media.add('(prefers-reduced-motion: no-preference)', () => {
+    this.media.add({
+      desktop: '(min-width: 1200px) and (hover: hover) and (pointer: fine)',
+      touch: '(any-pointer: coarse)',
+      motion: '(prefers-reduced-motion: no-preference)',
+    }, context => {
+      if (!context.conditions.motion) return;
+      if (!context.conditions.desktop || context.conditions.touch) {
+        this.preloaderSeen = true;
+        const destroyCompact = initCompactMotion(this.root, { gsap });
+        this.requestRefresh();
+        return destroyCompact;
+      }
       const scroll = new SmoothScroll();
       scroll.init();
 
@@ -68,7 +81,10 @@ export class LandingPage {
         scroll,
         requestRefresh: this.requestRefresh,
       });
-      preloader.init();
+      if (!this.preloaderSeen) {
+        preloader.init();
+        this.preloaderSeen = true;
+      }
       const destroyHeroScroll = initHeroScroll(this.root.querySelector('[data-hero]'), {
         gsap,
         header: this.root.querySelector('[data-header]'),
