@@ -14,6 +14,7 @@ import { initSplashCursor } from '../interactions/splash-cursor.js';
 import { initHoverCipher } from '../interactions/hover-cipher.js';
 import { initScrollUnderlay } from '../interactions/scroll-underlay.js';
 import { initProjectsMotion } from '../sections/projects-motion.js';
+import { initHeroScroll } from '../sections/hero-scroll.js';
 
 export class LandingPage {
   constructor(root) {
@@ -67,6 +68,10 @@ export class LandingPage {
         requestRefresh: this.requestRefresh,
       });
       preloader.init();
+      const destroyHeroScroll = initHeroScroll(this.root.querySelector('[data-hero]'), {
+        gsap,
+        header: this.root.querySelector('[data-header]'),
+      });
       initReveals(this.root, services);
       initMarquee(this.root, services);
       const destroyStatistics = initStatistics(this.root, services);
@@ -101,6 +106,7 @@ export class LandingPage {
       // matchMedia me-revert tween/trigger; cleanup menghentikan Lenis.
       return () => {
         preloader.destroy();
+        destroyHeroScroll();
         destroyProjectsMotion();
         destroyFooter();
         destroyStatisticsUnderlay();
